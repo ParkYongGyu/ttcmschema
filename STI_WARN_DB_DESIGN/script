@@ -1,0 +1,219 @@
+
+-- WarnList
+CREATE TABLE `sti_warn`.`WarnList` (
+	`id`               INT                                                 NOT NULL COMMENT '아이디', -- 아이디
+	`broker_id`        INT                                                 NULL     COMMENT '브로커아이디', -- 브로커아이디
+	`mt4Login`         INT                                                 NULL     COMMENT 'MT4로그인', -- MT4로그인
+	`username`         VARCHAR(255)                                        NULL     COMMENT '유저이름', -- 유저이름
+	`tel`              VARCHAR(20)                                         NULL     COMMENT '전화번호', -- 전화번호
+	`email`            VARCHAR(100)                                        NULL     COMMENT '이메일', -- 이메일
+	`balance`          DOUBLE                                              NULL     COMMENT '잔액청산후', -- 잔액청산후
+	`equity`           DOUBLE                                              NULL     COMMENT '현재자산', -- 현재자산
+	`lossEquity`       DOUBLE                                              NULL     COMMENT '손실', -- 손실
+	`warningEquity`    DOUBLE                                              NULL     COMMENT '경고자산', -- 경고자산
+	`pureDeposit`      DOUBLE                                              NULL     COMMENT '순수입금액', -- 순수입금액
+	`totalWarnCount`   INT                                                 NULL     COMMENT '전체경고횟수', -- 전체경고횟수
+	`recentModifyTime` DATETIME                                            NULL     COMMENT '최근수정시간', -- 최근수정시간
+	`enterTime`        DATETIME                                            NULL     COMMENT '입력시간', -- 입력시간
+	`notificationTime` DATETIME                                           NULL     COMMENT 'noti시간', -- noti시간
+	`status`           ENUM('New', 'In Process', 'Done', 'Hold', 'Failed') NULL     COMMENT '상태', -- 상태
+	`processTime`      DATETIME                                           NULL     COMMENT '처리시간', -- 처리시간
+	`processorName`    VARCHAR(255)                                        NULL     COMMENT '처리자이름', -- 처리자이름
+	`processComment`   TEXT                                                NULL     COMMENT '코멘트' -- 코멘트
+)
+COMMENT 'WarnList';
+
+-- WarnList
+ALTER TABLE `sti_warn`.`WarnList`
+	ADD CONSTRAINT `PK_WarnList` -- WarnList 기본키
+		PRIMARY KEY (
+			`id` -- 아이디
+		);
+
+ALTER TABLE `sti_warn`.`WarnList`
+	MODIFY COLUMN `id` INT NOT NULL AUTO_INCREMENT COMMENT '아이디';
+
+-- 새 테이블
+CREATE TABLE `sti_warn`.`WarnExemption` (
+	`id`         int      NOT NULL COMMENT '아이디', -- 아이디
+	`broker_id`  int      NULL     COMMENT '브로커아이디', -- 브로커아이디
+	`mt4Login`   int      NULL     COMMENT 'MT4로그인', -- MT4로그인
+	`reason`     TEXT     NULL     COMMENT '제외사유', -- 제외사유
+	`enterTime`  DATETIME NULL     COMMENT '입력시간', -- 입력시간
+	`modifyTime` DATETIME NULL     COMMENT '수정시간' -- 수정시간
+)
+COMMENT '새 테이블';
+
+-- 새 테이블
+ALTER TABLE `sti_warn`.`WarnExemption`
+	ADD CONSTRAINT `PK_WarnExemption` -- 새 테이블 기본키
+		PRIMARY KEY (
+			`id` -- 아이디
+		);
+
+-- 브로커회사
+CREATE TABLE `sti_warn`.`Broker` (
+	`id`          int          NOT NULL COMMENT '아이디', -- 아이디
+	`companyname` VARCHAR(255) NULL     COMMENT '회사명' -- 회사명
+)
+COMMENT '브로커회사';
+
+-- 브로커회사
+ALTER TABLE `sti_warn`.`Broker`
+	ADD CONSTRAINT `PK_Broker` -- 브로커회사 기본키
+		PRIMARY KEY (
+			`id` -- 아이디
+		);
+
+ALTER TABLE `sti_warn`.`Broker`
+	MODIFY COLUMN `id` INT NOT NULL AUTO_INCREMENT COMMENT '아이디';
+
+
+
+-- WarnListTmp
+CREATE TABLE `sti_warn`.`WarnListTmp` (
+	`id`               INT                                                 NOT NULL COMMENT '아이디', -- 아이디
+	`broker_id`        INT                                                 NULL     COMMENT '브로커아이디', -- 브로커아이디
+	`mt4Login`         INT                                                 NULL     COMMENT 'MT4로그인', -- MT4로그인
+	`username`         VARCHAR(255)                                        NULL     COMMENT '유저이름', -- 유저이름
+	`tel`              VARCHAR(20)                                         NULL     COMMENT '전화번호', -- 전화번호
+	`email`            VARCHAR(100)                                        NULL     COMMENT '이메일', -- 이메일
+	`balance`          DOUBLE                                              NULL     COMMENT '잔액청산후', -- 잔액청산후
+	`equity`           DOUBLE                                              NULL     COMMENT '현재자산', -- 현재자산
+	`lossEquity`       DOUBLE                                              NULL     COMMENT '손실', -- 손실
+	`warningEquity`    DOUBLE                                              NULL     COMMENT '경고자산', -- 경고자산
+	`pureDeposit`      DOUBLE                                              NULL     COMMENT '순수입금액', -- 순수입금액
+	`totalWarnCount`   INT                                                 NULL     COMMENT '전체경고횟수', -- 전체경고횟수
+	`recentModifyTime` DATETIME                                            NULL     COMMENT '최근수정시간', -- 최근수정시간
+	`enterTime`        DATETIME                                            NULL     COMMENT '입력시간', -- 입력시간
+	`notificationTime` DATETIME                                           NULL     COMMENT 'noti시간', -- noti시간
+	`status`           ENUM('New', 'In Process', 'Done', 'Hold', 'Failed') NULL     COMMENT '상태', -- 상태
+	`processTime`      DATETIME                                           NULL     COMMENT '처리시간', -- 처리시간
+	`processorName`    VARCHAR(255)                                        NULL     COMMENT '처리자이름', -- 처리자이름
+	`processComment`   TEXT                                                NULL     COMMENT '코멘트' -- 코멘트
+)
+COMMENT 'WarnListTmp';
+
+-- WarnList
+ALTER TABLE `sti_warn`.`WarnListTmp`
+	ADD CONSTRAINT `PK_WarnList` -- WarnList 기본키
+		PRIMARY KEY (
+			`id` -- 아이디
+		);
+
+ALTER TABLE `sti_warn`.`WarnListTmp`
+	MODIFY COLUMN `id` INT NOT NULL AUTO_INCREMENT COMMENT '아이디';
+	
+	
+
+CREATE TABLE `sti_warn`.`WarnTradesTmp` (
+  `TICKET` int(11) NOT NULL,
+  `LOGIN` int(11) NOT NULL,
+  `SYMBOL` char(16) NOT NULL,
+  `DIGITS` int(11) NOT NULL,
+  `CMD` int(11) NOT NULL,
+  `VOLUME` int(11) NOT NULL,
+  `OPEN_TIME` datetime NOT NULL,
+  `OPEN_PRICE` double NOT NULL,
+  `SL` double NOT NULL,
+  `TP` double NOT NULL,
+  `CLOSE_TIME` datetime NOT NULL,
+  `EXPIRATION` datetime NOT NULL,
+  `REASON` int(11) NOT NULL DEFAULT '0',
+  `CONV_RATE1` double NOT NULL,
+  `CONV_RATE2` double NOT NULL,
+  `COMMISSION` double NOT NULL,
+  `COMMISSION_AGENT` double NOT NULL,
+  `SWAPS` double NOT NULL,
+  `CLOSE_PRICE` double NOT NULL,
+  `PROFIT` double NOT NULL,
+  `TAXES` double NOT NULL,
+  `COMMENT` char(32) NOT NULL,
+  `INTERNAL_ID` int(11) NOT NULL,
+  `MARGIN_RATE` double NOT NULL,
+  `TIMESTAMP` int(11) NOT NULL,
+  `MAGIC` int(11) NOT NULL DEFAULT '0',
+  `GW_VOLUME` int(11) NOT NULL DEFAULT '0',
+  `GW_OPEN_PRICE` int(11) NOT NULL DEFAULT '0',
+  `GW_CLOSE_PRICE` int(11) NOT NULL DEFAULT '0',
+  `MODIFY_TIME` datetime NOT NULL,	
+  `enterTime`        DATETIME                                            NULL     COMMENT '입력시간', -- 입력시간
+  `notificationTime` DATETIME                                           NULL     COMMENT 'noti시간', -- noti시간
+  `status`           ENUM('New', 'In Process', 'Done', 'Hold', 'Failed') NULL     DEFAULT 'New' COMMENT '상태', -- 상태
+  `processTime`      DATETIME                                           NULL     COMMENT '처리시간', -- 처리시간
+  `processorName`    VARCHAR(255)                                        NULL     COMMENT '처리자이름', -- 처리자이름
+  `processComment`   TEXT                                                NULL     COMMENT '코멘트', -- 코멘트
+  `broker_id`   INT                                                NULL     COMMENT 'BROKER_ID', -- BROKER_ID
+  PRIMARY KEY (`TICKET`),
+  KEY `INDEX_LOGIN_TMP` (`LOGIN`),
+  KEY `INDEX_CMD_TMP` (`CMD`),
+  KEY `INDEX_OPENTIME_TMP` (`OPEN_TIME`),
+  KEY `INDEX_CLOSETIME_TMP` (`CLOSE_TIME`),
+  KEY `INDEX_STAMP_TMP` (`TIMESTAMP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+	
+
+CREATE TABLE `sti_warn`.`WarnTrades` (
+  `TICKET` int(11) NOT NULL,
+  `LOGIN` int(11) NOT NULL,
+  `SYMBOL` char(16) NOT NULL,
+  `DIGITS` int(11) NOT NULL,
+  `CMD` int(11) NOT NULL,
+  `VOLUME` int(11) NOT NULL,
+  `OPEN_TIME` datetime NOT NULL,
+  `OPEN_PRICE` double NOT NULL,
+  `SL` double NOT NULL,
+  `TP` double NOT NULL,
+  `CLOSE_TIME` datetime NOT NULL,
+  `EXPIRATION` datetime NOT NULL,
+  `REASON` int(11) NOT NULL DEFAULT '0',
+  `CONV_RATE1` double NOT NULL,
+  `CONV_RATE2` double NOT NULL,
+  `COMMISSION` double NOT NULL,
+  `COMMISSION_AGENT` double NOT NULL,
+  `SWAPS` double NOT NULL,
+  `CLOSE_PRICE` double NOT NULL,
+  `PROFIT` double NOT NULL,
+  `TAXES` double NOT NULL,
+  `COMMENT` char(32) NOT NULL,
+  `INTERNAL_ID` int(11) NOT NULL,
+  `MARGIN_RATE` double NOT NULL,
+  `TIMESTAMP` int(11) NOT NULL,
+  `MAGIC` int(11) NOT NULL DEFAULT '0',
+  `GW_VOLUME` int(11) NOT NULL DEFAULT '0',
+  `GW_OPEN_PRICE` int(11) NOT NULL DEFAULT '0',
+  `GW_CLOSE_PRICE` int(11) NOT NULL DEFAULT '0',
+  `MODIFY_TIME` datetime NOT NULL,	
+  `enterTime`        DATETIME                                            NULL     COMMENT '입력시간', -- 입력시간
+  `notificationTime` DATETIME                                           NULL     COMMENT 'noti시간', -- noti시간
+  `status`           ENUM('New', 'In Process', 'Done', 'Hold', 'Failed') NULL     DEFAULT 'New' COMMENT '상태', -- 상태
+  `processTime`      DATETIME                                           NULL     COMMENT '처리시간', -- 처리시간
+  `processorName`    VARCHAR(255)                                        NULL     COMMENT '처리자이름', -- 처리자이름
+  `processComment`   TEXT                                                NULL     COMMENT '코멘트', -- 코멘트
+  `broker_id`   INT                                                NULL     COMMENT 'BROKER_ID', -- BROKER_ID
+  PRIMARY KEY (`TICKET`),
+  KEY `INDEX_LOGIN` (`LOGIN`),
+  KEY `INDEX_CMD` (`CMD`),
+  KEY `INDEX_OPENTIME` (`OPEN_TIME`),
+  KEY `INDEX_CLOSETIME` (`CLOSE_TIME`),
+  KEY `INDEX_STAMP` (`TIMESTAMP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table sti_warn.status (
+	statusId int not null,
+    statusName varchar(100 )
+);
+
+insert into sti_warn.status values ( 0, 'New' );
+insert into sti_warn.status values ( 0, 'In Process' );
+insert into sti_warn.status values ( 0, 'Done' );
+insert into sti_warn.status values ( 0, 'Hold' );
+insert into sti_warn.status values ( 0, 'Failed' );
+insert into sti_warn.status values ( 1, 'New' );
+insert into sti_warn.status values ( 2, 'In Process' );
+insert into sti_warn.status values ( 3, 'Done' );
+insert into sti_warn.status values ( 4, 'Hold' );
+insert into sti_warn.status values ( 5, 'Failed' );
+
+commit;
