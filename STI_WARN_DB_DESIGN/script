@@ -205,6 +205,24 @@ create table sti_warn.status (
     statusName varchar(100 )
 );
 
+create table sti_warn.WarnTradesHistory (
+	id int not null primary key auto_increment,
+    TICKET int not null,
+	`status`           ENUM('New', 'In Process', 'Done', 'Hold', 'Failed') NULL     COMMENT '상태', -- 상태
+	`processComment`   VARCHAR(255)                                                NULL     COMMENT '코멘트', -- 코멘트
+	`enterTime`        DATETIME                                            NULL     COMMENT '입력시간' -- 입력시간
+);
+
+create table sti_warn.WarnListHistory (
+	id int not null primary key auto_increment,
+	`broker_id`        INT                                                 NULL     COMMENT '브로커아이디', -- 브로커아이디
+	`mt4Login`         INT                                                 NULL     COMMENT 'MT4로그인', -- MT4로그인
+	`status`           ENUM('New', 'In Process', 'Done', 'Hold', 'Failed') NULL     COMMENT '상태', -- 상태
+	`processComment`   VARCHAR(255)                                                NULL     COMMENT '코멘트', -- 코멘트
+	`enterTime`        DATETIME                                            NULL     COMMENT '입력시간' -- 입력시간
+);
+
+
 insert into sti_warn.status values ( 0, 'New' );
 insert into sti_warn.status values ( 0, 'In Process' );
 insert into sti_warn.status values ( 0, 'Done' );
