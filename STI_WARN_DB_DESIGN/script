@@ -235,3 +235,261 @@ insert into sti_warn.status values ( 4, 'Hold' );
 insert into sti_warn.status values ( 5, 'Failed' );
 
 commit;
+
+
+
+
+
+
+CREATE TABLE `sti_warn`.`WarnTradesLoss60pips` (
+  `TICKET` int(11) NOT NULL,
+  `LOGIN` int(11) NOT NULL,
+  `SYMBOL` char(16) NOT NULL,
+  `DIGITS` int(11) NOT NULL,
+  `CMD` int(11) NOT NULL,
+  `VOLUME` int(11) NOT NULL,
+  `OPEN_TIME` datetime NOT NULL,
+  `OPEN_PRICE` double NOT NULL,
+  `SL` double NOT NULL,
+  `TP` double NOT NULL,
+  `CLOSE_TIME` datetime NOT NULL,
+  `EXPIRATION` datetime NOT NULL,
+  `REASON` int(11) NOT NULL DEFAULT '0',
+  `CONV_RATE1` double NOT NULL,
+  `CONV_RATE2` double NOT NULL,
+  `COMMISSION` double NOT NULL,
+  `COMMISSION_AGENT` double NOT NULL,
+  `SWAPS` double NOT NULL,
+  `CLOSE_PRICE` double NOT NULL,
+  `PROFIT` double NOT NULL,
+  `PROFITLOSS50PIPS` double NOT NULL,
+  `PROFITLOSS60PIPS` double NOT NULL,
+  `PROFITLOSS70PIPS` double NOT NULL,
+  `PROFITLOSS80PIPS` double NOT NULL,
+  `PROFITLOSS90PIPS` double NOT NULL,
+  `PROFITLOSS100PIPS` double NOT NULL,
+  `PROFITLOSS110PIPS` double NOT NULL,
+  `PROFITLOSS120PIPS` double NOT NULL,
+  `PROFITLOSS130PIPS` double NOT NULL,
+  `PROFITLOSS140PIPS` double NOT NULL,
+  `PROFITLOSS150PIPS` double NOT NULL,
+  `TAXES` double NOT NULL,
+  `COMMENT` char(32) NOT NULL,
+  `INTERNAL_ID` int(11) NOT NULL,
+  `MARGIN_RATE` double NOT NULL,
+  `TIMESTAMP` int(11) NOT NULL,
+  `MAGIC` int(11) NOT NULL DEFAULT '0',
+  `GW_VOLUME` int(11) NOT NULL DEFAULT '0',
+  `GW_OPEN_PRICE` int(11) NOT NULL DEFAULT '0',
+  `GW_CLOSE_PRICE` int(11) NOT NULL DEFAULT '0',
+  `MODIFY_TIME` datetime NOT NULL,	
+  `enterTime`        DATETIME                                            NULL     COMMENT '입력시간', -- 입력시간
+  `notificationTime` DATETIME                                           NULL     COMMENT 'noti시간', -- noti시간
+  `status`           ENUM('New', 'In Process', 'Done', 'Hold', 'Failed') NULL     DEFAULT 'New' COMMENT '상태', -- 상태
+  `processTime`      DATETIME                                           NULL     COMMENT '처리시간', -- 처리시간
+  `processorName`    VARCHAR(255)                                        NULL     COMMENT '처리자이름', -- 처리자이름
+  `processComment`   TEXT                                                NULL     COMMENT '코멘트', -- 코멘트
+  `broker_id`   INT                                                NULL     COMMENT 'BROKER_ID', -- BROKER_ID
+  PRIMARY KEY (`TICKET`),
+  KEY `INDEX_LOGIN` (`LOGIN`),
+  KEY `INDEX_CMD` (`CMD`),
+  KEY `INDEX_OPENTIME` (`OPEN_TIME`),
+  KEY `INDEX_CLOSETIME` (`CLOSE_TIME`),
+  KEY `INDEX_STAMP` (`TIMESTAMP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+create table sti_warn.maxtime ( 
+id int primary key not null,
+name varchar(255),
+MODIFY_TIME datetime
+);
+
+insert into sti_warn.maxtime values ( 1, 'TTCM_MT4_TRADES', '1970-01-01 00:00:00');
+insert into sti_warn.maxtime values ( 2, 'TTCM_MT4_USERS', '1970-01-01 00:00:00');
+
+
+CREATE TABLE `sti_warn`.`TTCM_MT4_TRADES` (
+  `TICKET` int(11) NOT NULL,
+  `LOGIN` int(11) NOT NULL,
+  `SYMBOL` char(16) NOT NULL,
+  `DIGITS` int(11) NOT NULL,
+  `CMD` int(11) NOT NULL,
+  `VOLUME` int(11) NOT NULL,
+  `OPEN_TIME` datetime NOT NULL,
+  `OPEN_PRICE` double NOT NULL,
+  `SL` double NOT NULL,
+  `TP` double NOT NULL,
+  `CLOSE_TIME` datetime NOT NULL,
+  `EXPIRATION` datetime NOT NULL,
+  `REASON` int(11) NOT NULL DEFAULT '0',
+  `CONV_RATE1` double NOT NULL,
+  `CONV_RATE2` double NOT NULL,
+  `COMMISSION` double NOT NULL,
+  `COMMISSION_AGENT` double NOT NULL,
+  `SWAPS` double NOT NULL,
+  `CLOSE_PRICE` double NOT NULL,
+  `PROFIT` double NOT NULL,
+  `TAXES` double NOT NULL,
+  `COMMENT` char(32) NOT NULL,
+  `INTERNAL_ID` int(11) NOT NULL,
+  `MARGIN_RATE` double NOT NULL,
+  `TIMESTAMP` int(11) NOT NULL,
+  `MAGIC` int(11) NOT NULL DEFAULT '0',
+  `GW_VOLUME` int(11) NOT NULL DEFAULT '0',
+  `GW_OPEN_PRICE` int(11) NOT NULL DEFAULT '0',
+  `GW_CLOSE_PRICE` int(11) NOT NULL DEFAULT '0',
+  `MODIFY_TIME` datetime NOT NULL,
+  PRIMARY KEY (`TICKET`),
+  KEY `INDEX_LOGIN` (`LOGIN`),
+  KEY `INDEX_CMD` (`CMD`),
+  KEY `INDEX_OPENTIME` (`OPEN_TIME`),
+  KEY `INDEX_CLOSETIME` (`CLOSE_TIME`),
+  KEY `INDEX_STAMP` (`TIMESTAMP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `sti_warn`.`TTCM_MT4_USERS` (
+  `LOGIN` int(11) NOT NULL,
+  `GROUPNAME` char(16) NOT NULL,
+  `ENABLE` int(11) NOT NULL,
+  `ENABLE_CHANGE_PASS` int(11) NOT NULL,
+  `ENABLE_READONLY` int(11) NOT NULL,
+  `ENABLE_OTP` int(11) NOT NULL DEFAULT '0',
+  `PASSWORD_PHONE` char(32) NOT NULL,
+  `NAME` char(128) NOT NULL,
+  `COUNTRY` char(32) NOT NULL,
+  `CITY` char(32) NOT NULL,
+  `STATE` char(32) NOT NULL,
+  `ZIPCODE` char(16) NOT NULL,
+  `ADDRESS` char(128) NOT NULL,
+  `LEAD_SOURCE` char(32) NOT NULL DEFAULT '',
+  `PHONE` char(32) NOT NULL,
+  `EMAIL` char(48) NOT NULL,
+  `COMMENT` char(64) NOT NULL,
+  `ID` char(32) NOT NULL,
+  `STATUS` char(16) NOT NULL,
+  `REGDATE` datetime NOT NULL,
+  `LASTDATE` datetime NOT NULL,
+  `LEVERAGE` int(11) NOT NULL,
+  `AGENT_ACCOUNT` int(11) NOT NULL,
+  `TIMESTAMP` int(11) NOT NULL,
+  `BALANCE` double NOT NULL,
+  `PREVMONTHBALANCE` double NOT NULL,
+  `PREVBALANCE` double NOT NULL,
+  `CREDIT` double NOT NULL,
+  `INTERESTRATE` double NOT NULL,
+  `TAXES` double NOT NULL,
+  `SEND_REPORTS` int(11) NOT NULL,
+  `MQID` int(10) unsigned NOT NULL DEFAULT '0',
+  `USER_COLOR` int(11) NOT NULL,
+  `EQUITY` double NOT NULL DEFAULT '0',
+  `MARGIN` double NOT NULL DEFAULT '0',
+  `MARGIN_LEVEL` double NOT NULL DEFAULT '0',
+  `MARGIN_FREE` double NOT NULL DEFAULT '0',
+  `CURRENCY` char(16) NOT NULL DEFAULT '',
+  `API_DATA` blob,
+  `MODIFY_TIME` datetime NOT NULL,
+  `USER_EMAIL` VARCHAR(255) default 'N/A',
+  PRIMARY KEY (`LOGIN`),
+  KEY `INDEX_STAMP` (`TIMESTAMP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+
+show variables like '%character%';
+
+
+alter database sti_warn CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE sti_warn.Broker CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE sti_warn.Broker CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+ALTER TABLE sti_warn.maxtime CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE sti_warn.maxtime CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+ALTER TABLE sti_warn.status CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE sti_warn.status CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+ALTER TABLE sti_warn.TTCM_MT4_TRADES CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE sti_warn.TTCM_MT4_USERS CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+ALTER TABLE sti_warn.WarnExemption CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE sti_warn.WarnExemption CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+ALTER TABLE sti_warn.WarnList CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE sti_warn.WarnList CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+ALTER TABLE sti_warn.WarnListHistory CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE sti_warn.WarnListHistory CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+ALTER TABLE sti_warn.WarnListTmp CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE sti_warn.WarnListTmp CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+ALTER TABLE sti_warn.WarnTrades CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE sti_warn.WarnTrades CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+ALTER TABLE sti_warn.WarnTradesHistory CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE sti_warn.WarnTradesHistory CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+ALTER TABLE sti_warn.WarnTradesLoss60pips CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE sti_warn.WarnTradesLoss60pips CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+ALTER TABLE sti_warn.WarnTradesTmp CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE sti_warn.WarnTradesTmp CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
+
+
+CREATE TABLE subibsys.LOGIN_INFO (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `LOGIN` int(11) NOT NULL,
+  `AGENT_ACCOUNT` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `IB_NAME` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `IB_PWD` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `MODIFY_TIME` datetime DEFAULT NULL,
+  `LAST_LOGIN_TIME` datetime DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `LOGIN_UNIQUE` (`LOGIN`)
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DELETE FROM subibsys.LOGIN_INFO ;
+
+INSERT INTO subibsys.LOGIN_INFO 
+( LOGIN, AGENT_ACCOUNT, IB_NAME, IB_PWD, MODIFY_TIME, LAST_LOGIN_TIME )
+SELECT 
+LOGIN, 
+TRIM(SUBSTRING(ZIPCODE, 6, 3)) AS AGENT_ACCOUNT, 
+NAME, 
+PASSWORD(concat('gso', TRIM(SUBSTRING(ZIPCODE, 6, 3)) )),
+now(),
+NULL
+FROM sti_warn.TTCM_MT4_USERS a
+WHERE ADDRESS like 'Agent%' 
+AND REGDATE > '2015-11-27 00:42:18';
+
+commit;
+
+
+
+CREATE TABLE subibsys.LOGIN_HISTORY (
+	ID int not null primary key auto_increment,
+	LOGIN_INFO_ID int NOT NULL,
+    LOGIN_IP VARCHAR(25),
+    LOGIN_TIME datetime
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+CREATE TABLE subibsys.IB_PWD_HISTORY (
+	ID int not null primary key auto_increment,
+	LOGIN_INFO_ID int NOT NULL,
+    IB_PWD VARCHAR(255) NOT NULL,
+    MODIFY_TIME datetime
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+ 
