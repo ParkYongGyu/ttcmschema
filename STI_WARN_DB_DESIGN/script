@@ -492,4 +492,27 @@ CREATE TABLE subibsys.IB_PWD_HISTORY (
 
 
 
+CREATE TABLE subibsys.MARKET_NOTICE (
+	ID int not null primary key auto_increment,
+    TITLE VARCHAR(255) NOT NULL,
+    login_info_id int, 
+    WRITER_NAME VARCHAR(255), 
+    CONTENT TEXT,
+    CREATED_TIME datetime,
+    MODIFY_TIME datetime
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+CREATE TABLE subibsys.MARKET_NOTICE_VIEW (
+	ID int not null primary key auto_increment,
+    market_notice_view_id int NOT NULL,
+    login_info_id int NOT NULL,
+    FIRST_VIEW_TIME datetime,
+    LAST_VIEW_TIME datetime
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+
  
