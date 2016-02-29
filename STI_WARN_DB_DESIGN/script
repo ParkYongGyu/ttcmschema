@@ -522,5 +522,13 @@ CREATE TABLE subibsys.MARKET_NOTICE_VIEW (
 
 
 
+CREATE TABLE `subibsys`.`MARKET_NOTICE_GCM_USERS` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `login_info_id` INT NOT NULL,
+  `token` VARCHAR(512) NOT NULL,
+  `os` ENUM('Android', 'iOS') NOT NULL,
+  `sys_id` VARCHAR(512) NOT NULL,
+  `regist_dt` DATETIME NULL,
+  PRIMARY KEY (`id`));
 
  
